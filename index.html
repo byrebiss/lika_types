@@ -656,9 +656,12 @@ function finishAndSend() {
   };
 
   const tg = window.Telegram?.WebApp;
-  if (tg) {
-    // Передаём результат боту и закрываем Mini App
-    tg.sendData(JSON.stringify(resultData));
+  if (tg && tg.sendData) {
+    try {
+      tg.sendData(JSON.stringify(resultData));
+    } catch(e) {
+      alert('Ошибка отправки: ' + e.message);
+    }
   } else {
     // Фолбэк для теста вне Telegram
     alert('Твой архетип: ' + main.name + ' ' + main.icon);
