@@ -1,7 +1,7 @@
 import os
 import json
 import httpx
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8645404074:AAG14-fw8XZ884GmnqW9vKHXS4-OTVV_OKo")
@@ -37,14 +37,14 @@ async def ask_gemini(prompt: str) -> str:
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[
-        InlineKeyboardButton(
+        KeyboardButton(
             "✨ Узнать свой архетип",
             web_app=WebAppInfo(url=WEB_APP_URL)
         )
     ]]
     await update.message.reply_text(
         "Привет! 🌸\n\nНажми кнопку ниже, чтобы пройти тест на определение архетипа.",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     )
 
 
